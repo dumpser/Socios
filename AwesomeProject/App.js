@@ -1,5 +1,4 @@
 import React from "react";
-import FirebaseKeys from "./config";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
@@ -7,7 +6,6 @@ import { Ionicons } from "@expo/vector-icons";
 import LoadingScreen from "./screens/LoadingScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
-
 import HomeScreen from "./screens/HomeScreen";
 import MessageScreen from "./screens/MessageScreen";
 import PostScreen from "./screens/PostScreen";
@@ -16,7 +14,17 @@ import ProfileScreen from "./screens/ProfileScreen";
 
 import * as firebase from "firebase";
 
-var firebaseConfig = FirebaseKeys;
+var firebaseConfig = {
+    apiKey: "AIzaSyBEysRIkXzLNNVccj4TiVMtioPQ8BZuE-0",
+    authDomain: "api-5114501990753869617-416413.firebaseapp.com",
+    databaseURL: "https://api-5114501990753869617-416413.firebaseio.com",
+    projectId: "api-5114501990753869617-416413",
+    storageBucket: "api-5114501990753869617-416413.appspot.com",
+    messagingSenderId: "894821865901",
+    appId: "1:894821865901:web:ffe4efba7b691c9e9fe924",
+    measurementId: "G-1Y5HRP6887"
+  };
+
 
 firebase.initializeApp(firebaseConfig);
 
