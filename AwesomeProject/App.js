@@ -2,7 +2,7 @@ import React from "react";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
-import { Ionicons } from "@expo/vector-icons";
+import Icon from 'react-native-vector-icons/AntDesign';
 import LoadingScreen from "./screens/LoadingScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
@@ -33,21 +33,21 @@ const AppTabNavigator = createBottomTabNavigator(
         Home: {
             screen: HomeScreen,
             navigationOptions: {
-                tabBarIcon: ({ tintColor }) => <Ionicons name="ios-home" size={24} color={tintColor} />
+                tabBarIcon: ({ tintColor }) => <Icon name="home" size={24} color={tintColor} />
             }
         },
         Message: {
             screen: MessageScreen,
             navigationOptions: {
-                tabBarIcon: ({ tintColor }) => <Ionicons name="ios-chatboxes" size={24} color={tintColor} />
+                tabBarIcon: ({ tintColor }) => <Icon name="wechat" size={24} color={tintColor} />
             }
         },
         Post: {
             screen: PostScreen,
             navigationOptions: {
                 tabBarIcon: ({ tintColor }) => (
-                    <Ionicons
-                        name="ios-add-circle"
+                    <Icon
+                        name="pluscircle"
                         size={48}
                         color="#E9446A"
                         style={{
@@ -63,13 +63,13 @@ const AppTabNavigator = createBottomTabNavigator(
         Notification: {
             screen: NotificationScreen,
             navigationOptions: {
-                tabBarIcon: ({ tintColor }) => <Ionicons name="ios-notifications" size={24} color={tintColor} />
+                tabBarIcon: ({ tintColor }) => <Icon name="notification" size={24} color={tintColor} />
             }
         },
         Profile: {
             screen: ProfileScreen,
             navigationOptions: {
-                tabBarIcon: ({ tintColor }) => <Ionicons name="ios-person" size={24} color={tintColor} />
+                tabBarIcon: ({ tintColor }) => <Icon name="user" size={24} color={tintColor} />
             }
         }
     },

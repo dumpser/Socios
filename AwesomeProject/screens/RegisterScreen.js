@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image, StatusBar } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import Icon from 'react-native-vector-icons/AntDesign';
 import * as firebase from "firebase";
 
 export default class RegisterScreen extends React.Component {
@@ -35,17 +35,17 @@ export default class RegisterScreen extends React.Component {
                     style={{ position: "absolute", bottom: -325, right: -225 }}
                 ></Image>
                 <TouchableOpacity style={styles.back} onPress={() => this.props.navigation.goBack()}>
-                    <Ionicons name="ios-arrow-round-back" size={32} color="#FFF"></Ionicons>
+                    <Icon name="leftcircle" size={32} color="#FFF"></Icon>
                 </TouchableOpacity>
                 <View style={{ position: "absolute", top: 64, alignItems: "center", width: "100%" }}>
                     <Text style={styles.greeting}>{`Hello!\nSign up to get started.`}</Text>
                     <TouchableOpacity style={styles.avatar}>
-                        <Ionicons
-                            name="ios-add"
+                        <Icon
+                            name="pluscircle"
                             size={40}
                             color="#FFF"
                             style={{ marginTop: 6, marginLeft: 2 }}
-                        ></Ionicons>
+                        ></Icon>
                     </TouchableOpacity>
                 </View>
 
