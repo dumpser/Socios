@@ -10,6 +10,7 @@ var firebaseConfig = {
     appId: "1:894821865901:web:ffe4efba7b691c9e9fe924",
     measurementId: "G-1Y5HRP6887"
   };
+  
 class Fire {
     constructor() {
         firebase.initializeApp(firebaseConfig);
@@ -35,7 +36,27 @@ class Fire {
                 });
         });
     };
-
+	
+	writeUserData({ email, fname , lname}){
+    firebase.database().ref('UsersList/').push({
+        email,
+        fname,
+        lname
+    }).then((data)=>{
+        //success callback
+        console.log('data ' , data)
+    }).catch((error)=>{
+        //error callback
+        console.log('error ' , error)
+    })
+	}
+	readUserData() {
+		this.firestore.collection("posts").get().then(function(querySnapshot){
+			let postss = querySnapshot.docs.map(doc => doc.data())
+			console.log(postss)}).catch(function(error) {
+      console.log('Error getting documents: ', error)
+    })
+	}
     uploadPhotoAsync = async uri => {
         const path = `photos/${this.uid}/${Date.now()}.jpg`;
 

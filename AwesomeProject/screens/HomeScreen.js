@@ -3,6 +3,9 @@ import { View, Text, StyleSheet, Image, FlatList } from "react-native";
 import moment from "moment";
 import Icon from 'react-native-vector-icons/AntDesign';
 // temporary data until we pull from Firebase
+import Fire from "../Fire";
+
+
 posts = [
     {
         id: "1",
@@ -43,6 +46,20 @@ posts = [
 ];
 
 export default class HomeScreen extends React.Component {
+	
+	
+	componentDidMount = () => {
+    try {
+      // Cloud Firestore: Initial Query
+      Fire.shared.readUserData();
+    }
+    catch (error) {
+      console.log(error);
+    }
+	};
+	
+
+
     renderPost = post => {
         return (
             <View style={styles.feedItem}>
