@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, FlatList } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity , Button , Image, FlatList } from "react-native";
 import moment from "moment";
 import Icon from 'react-native-vector-icons/AntDesign';
 // temporary data until we pull from Firebase
@@ -47,34 +47,55 @@ posts = [
 
 export default class HomeScreen extends React.Component {
 	
+	state = {
+    feed: [],
+	dummy: 1
+	}
+	
+	async getMarkers() {
+	const markers = [];
+	await Fire.shared.firestore.collection('posts').get()
+		.then(querySnapshot => {
+		querySnapshot.docs.forEach(doc => {
+		markers.push(doc.data());
+		});
+	});
+	this.setState({ feed: markers});
+	}
 	
 	componentDidMount = () => {
     try {
       // Cloud Firestore: Initial Query
-      Fire.shared.readUserData();
+	  this.getMarkers();
+	  
+	  //this.setState({ feed: feeds });
     }
     catch (error) {
       console.log(error);
     }
 	};
 	
+    refreshScreen() 
+	{
+    this.setState({ dummy: 1 })
+    }  	
 
 
     renderPost = post => {
         return (
             <View style={styles.feedItem}>
-                <Image source={post.avatar} style={styles.avatar} />
+                <Image source={require("../assets/tempAvatar.jpg")} style={styles.avatar} />
                 <View style={{ flex: 1 }}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                         <View>
-                            <Text style={styles.name}>{post.name}</Text>
+                            <Text style={styles.name}>{post.author}</Text>
                             <Text style={styles.timestamp}>{moment(post.timestamp).fromNow()}</Text>
                         </View>
 
                         <Icon name="ellipsis1" size={24} color="#73788B" />
                     </View>
                     <Text style={styles.post}>{post.text}</Text>
-                    <Image source={post.image} style={styles.postImage} resizeMode="cover" />
+                    <Image source={{uri: post.image}} style={styles.postImage} resizeMode="cover" />
                     <View style={{ flexDirection: "row" }}>
                         <Icon name="hearto" size={24} color="#73788B" style={{ marginRight: 16 }} />
                         <Icon name="wechat" size={24} color="#73788B" />
@@ -88,14 +109,15 @@ export default class HomeScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Feed</Text>
+				<Button onPress={this.getMarkers.bind(this)} title="Refresh Screen" />
+                <Text style={styles.headerTitle}>Feed</Text>
                 </View>
 
                 <FlatList
                     style={styles.feed}
-                    data={posts}
+                    data={this.state.feed}
                     renderItem={({ item }) => this.renderPost(item)}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => item.uid}
                     showsVerticalScrollIndicator={false}
                 ></FlatList>
             </View>
@@ -109,7 +131,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#EBECF4"
     },
     header: {
-        paddingTop: 64,
+        paddingTop: 16,
         paddingBottom: 16,
         backgroundColor: "#FFF",
         alignItems: "center",

@@ -16,6 +16,8 @@ class Fire {
         firebase.initializeApp(firebaseConfig);
     }
 
+	
+	
     addPost = async ({ text, localUri }) => {
         const remoteUri = await this.uploadPhotoAsync(localUri);
 
@@ -26,6 +28,7 @@ class Fire {
                     text,
                     uid: this.uid,
                     timestamp: this.timestamp,
+					author: this.displayName, 
                     image: remoteUri
                 })
                 .then(ref => {
@@ -37,25 +40,24 @@ class Fire {
         });
     };
 	
-	writeUserData({ email, fname , lname}){
-    firebase.database().ref('UsersList/').push({
-        email,
-        fname,
-        lname
-    }).then((data)=>{
-        //success callback
-        console.log('data ' , data)
-    }).catch((error)=>{
-        //error callback
-        console.log('error ' , error)
-    })
-	}
-	readUserData() {
+	readUserData = () => {
 		this.firestore.collection("posts").get().then(function(querySnapshot){
 			let postss = querySnapshot.docs.map(doc => doc.data())
-			console.log(postss)}).catch(function(error) {
+			return postss}).catch(function(error) {
       console.log('Error getting documents: ', error)
     })
+	}
+	
+	
+	async getMarkers() {
+	const markers = [];
+	await firebase.firestore().collection('posts').get()
+		.then(querySnapshot => {
+		querySnapshot.docs.forEach(doc => {
+		markers.push(doc.data());
+		});
+	});
+	return markers;
 	}
     uploadPhotoAsync = async uri => {
         const path = `photos/${this.uid}/${Date.now()}.jpg`;
@@ -89,6 +91,10 @@ class Fire {
 
     get uid() {
         return (firebase.auth().currentUser || {}).uid;
+    }
+	
+	get displayName() {
+        return (firebase.auth().currentUser || {}).displayName;
     }
 
     get timestamp() {
