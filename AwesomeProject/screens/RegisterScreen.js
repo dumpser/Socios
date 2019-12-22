@@ -35,7 +35,7 @@ export default class RegisterScreen extends React.Component {
                     style={{ position: "absolute", bottom: -325, right: -225 }}
                 ></Image>
                 <TouchableOpacity style={styles.back} onPress={() => this.props.navigation.goBack()}>
-                    <Icon name="leftcircle" size={32} color="#FFF"></Icon>
+                    <Icon name="reload1" size={32} color="#FFF"></Icon>
                 </TouchableOpacity>
                 <View style={{ position: "absolute", top: 64, alignItems: "center", width: "100%" }}>
                     <Text style={styles.greeting}>{`Hello!\nSign up to get started.`}</Text>
