@@ -1,1 +1,1 @@
-BSM 447 MOBİL PROGRAMLAMA PROJE ÖDEVİ 
+React Native Project (not finished)
